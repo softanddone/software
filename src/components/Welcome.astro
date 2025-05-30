@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World</title>
+  <meta name="theme-color" content="red" />
+  <style>
+    section {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .box {
+      width: 100vw;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-text {
+      margin: 0 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    button {
+      width: 200px;
+      height: 50px;
+      background-color: rgb(46, 46, 156);
+      color: white;
+      padding: 30px;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 10px;
+    }
+
+    .hero-text h1 {
+      text-align: center;
+      color: #dfdcff;
+      font-size: 20px;
+      line-height: 1.2;
+      box-sizing: border-box;
+      padding: 5%;
+      width: 100%;
+      text-align: center;
+      perspective: 500px;
+    }
+
+    .hero {
+      width: 100vw;
+      height: 90vh;
+      margin-top: 10vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body {
+      background-color: rgb(191, 146, 233);
+    }
+
+    .box1, .box2, .box3 {
+      width: 150px;
+      height: 150px;
+      background-color: rgb(0, 26, 255);
+      margin: 5px;
+    }
+
+    .gilvon{
+      font-size: 30px;
+      margin-left: 120px;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto;
+    }
+  </style>
+</head>
+<body class="lenis lenis-smooth">
+  <div>
+    <section>
+      <div><h1 class="gilvon">gïlvøn.</h1></div>
+      <div class="hero">
+        <div class="hero-text">
+          <h1 class="text">Complex problems? We smooth them out like a barber with a fresh fade.</h1>
+          <button id="words" class="button">Words</button>
+          <!-- <button id="chars" class="button">Chars</button>
+          <button id="lines" class="button">Lines</button> -->
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="box">
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+      </div>
+    </section>
+
+    <section></section>
+  </div>
+
+  <!-- ✅ SplitType (free text splitter) -->
+  <script src="https://unpkg.com/split-type"></script>
+
+  <script type="module">
+    document.addEventListener("DOMContentLoaded", async () => {
+      const { default: Lenis } = await import("https://cdn.jsdelivr.net/npm/lenis@1.3.1");
+      const { default: gsap } = await import("https://cdn.skypack.dev/gsap");
+      const { ScrollTrigger } = await import("https://cdn.skypack.dev/gsap/ScrollTrigger");
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const lenis = new Lenis({ lerp: 0.1, smooth: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(() => lenis.raf(performance.now()));
+      gsap.ticker.lagSmoothing(0);
+
+      // Animate box
+      gsap.from(".box1", {
+        x: -300,
+        duration: 1,
+        ease: "elastic.out(1, 0.4)",
+        scrollTrigger: {
+          trigger: ".box1",
+          start: "center center",
+          end: "bottom 20%",
+          toggleActions: "restart pause reverse pause"
+        }
+      });
+
+      // ✅ SplitType setup
+      let split = new SplitType('.text', { types: 'words, chars, lines' });
+      let animation;
+
+      function resetAnimation() {
+        animation && animation.kill();
+        split && split.revert();
+        split = new SplitType('.text', { types: 'words, chars, lines' });
+      }
+
+      document.querySelector("#words").addEventListener("click", () => {
+        resetAnimation();
+        animation = gsap.from(split.words, {
+          y: -100,
+          opacity: 0,
+          rotation: gsap.utils.random(-80, 80),
+          duration: 0.7,
+          ease: "back",
+          stagger: 0.15
+        });
+      });
+
+      document.querySelector("#chars").addEventListener("click", () => {
+        resetAnimation();
+        animation = gsap.from(split.chars, {
+          x: 100,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power4",
+          stagger: 0.04
+        });
+      });
+
+      document.querySelector("#lines").addEventListener("click", () => {
+        resetAnimation();
+        animation = gsap.from(split.lines, {
+          rotationX: -100,
+          transformOrigin: "50% 50% -160px",
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3",
+          stagger: 0.25
+        });
+      });
+
+      window.addEventListener("resize", () => {
+        split.revert();
+        split = new SplitType('.text', { types: 'words, chars, lines' });
+      });
+    });
+  </script>
+</body>
+</html>
