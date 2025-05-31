@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>Hello World</title>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">
+
   <meta name="theme-color" content="red" />
   <style>
     section {
@@ -24,6 +28,7 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+     
     }
 
     button {
@@ -43,14 +48,16 @@
 
     .hero-text h1 {
       text-align: center;
-      color: #dfdcff;
-      font-size: 20px;
+      color: black;
+      font-size: 30px;
       line-height: 1.2;
       box-sizing: border-box;
-      padding: 5%;
+      /* padding: 5%; */
       width: 100%;
       text-align: center;
       perspective: 500px;
+         font-family: 'Oleo Script', cursive;
+       
     }
 
     .hero {
@@ -76,24 +83,46 @@
     .gilvon{
       font-size: 30px;
       margin-left: 120px;
+        font-family: 'Cormorant', serif;
+
     }
 
     .lenis.lenis-smooth {
       scroll-behavior: auto;
     }
+
+    @media screen and (min-width: 0px) and (max-width: 500px) {
+  .gilvon {
+    font-size: 30px; 
+    margin-left: 40px;
+    
+  }
+
+}
   </style>
 </head>
 <body class="lenis lenis-smooth">
   <div>
     <section>
-      <div><h1 class="gilvon">gïlvøn.</h1></div>
+      <div><h1 class="gilvon">[gïlvøn.]</h1></div>
       <div class="hero">
         <div class="hero-text">
+
+          <div>
           <h1 class="text">Complex problems? We smooth them out like a barber with a fresh fade.</h1>
+
+          </div>
           <button id="words" class="button">Words</button>
           <!-- <button id="chars" class="button">Chars</button>
           <button id="lines" class="button">Lines</button> -->
         </div>
+
+
+<div >
+  <div class="whatsapp"><i class="fa fa-whatsapp"></i></div>
+  <div class="call"><i class="fa fa-phone"></i></div>
+</div>
+
       </div>
     </section>
 
