@@ -3,20 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <title>Hello World</title>
-  <!-- <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet"> -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">
-
   <meta name="theme-color" content="red" />
+
+  <!-- Fonts Performance Optimization -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant&family=Oleo+Script&display=swap" rel="stylesheet">
+
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Cormorant', serif;
+      background-color: rgb(191, 146, 233);
+      scroll-behavior: smooth;
+    }
+
     section {
       width: 100vw;
       height: 100vh;
     }
 
-    .box {
-      width: 100vw;
-      height: 500px;
+    .hero {
+      height: 90vh;
+      margin-top: 10vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -25,126 +41,127 @@
     .hero-text {
       margin: 0 50px;
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
-     
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      color: black;
+      font-size: 30px;
+      line-height: 1.2;
+      font-family: 'Oleo Script', cursive;
     }
 
     button {
       width: 200px;
       height: 50px;
-      background-color: rgb(46, 46, 156);
-      color: white;
-      padding: 30px;
+      background: rgb(46, 46, 156);
+      color: #fff;
       cursor: pointer;
       border: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
       margin: 10px;
-    }
-
-    .hero-text h1 {
-      text-align: center;
-      color: black;
-      font-size: 30px;
-      line-height: 1.2;
-      box-sizing: border-box;
-      /* padding: 5%; */
-      width: 100%;
-      text-align: center;
-      perspective: 500px;
-         font-family: 'Oleo Script', cursive;
-       
-    }
-
-    .hero {
-      width: 100vw;
-      height: 90vh;
-      margin-top: 10vh;
+      font-size: 16px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    body {
-      background-color: rgb(191, 146, 233);
+    section p{
+     text-align: center;
+     font-size: 40px;
+     margin:0 200px;
+    }
+
+    .gilvon {
+      font-size: 30px;
+      margin-left: 120px;
+    }
+
+    .box {
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .box1, .box2, .box3 {
       width: 150px;
       height: 150px;
-      background-color: rgb(0, 26, 255);
+      background: rgb(0, 26, 255);
       margin: 5px;
     }
 
-    .gilvon{
-      font-size: 30px;
-      margin-left: 120px;
-        font-family: 'Cormorant', serif;
-
-    }
-
-    .lenis.lenis-smooth {
-      scroll-behavior: auto;
-    }
-
-    @media screen and (min-width: 0px) and (max-width: 500px) {
-  .gilvon {
-    font-size: 30px; 
-    margin-left: 40px;
-    
-  }
-
+    .reveal-type .word {
+  display: inline-block;
+  white-space: nowrap;
 }
+
+.reveal-type .char {
+  display: inline-block;
+}
+
+    
+
+    @media (max-width: 500px) {
+      .gilvon {
+        margin-left: 40px;
+      }
+      section p{
+          margin:0 50px;
+      }
+    }
   </style>
 </head>
-<body class="lenis lenis-smooth">
-  <div>
-    <section>
-      <div><h1 class="gilvon">[gïlvøn.]</h1></div>
-      <div class="hero">
-        <div class="hero-text">
 
-          <div>
-          <h1 class="text">Complex problems? We smooth them out like a barber with a fresh fade.</h1>
-
-          </div>
-          <button id="words" class="button">Words</button>
-          <!-- <button id="chars" class="button">Chars</button>
-          <button id="lines" class="button">Lines</button> -->
-        </div>
-
-
-<div >
-  <div class="whatsapp"><i class="fa fa-whatsapp"></i></div>
-  <div class="call"><i class="fa fa-phone"></i></div>
-</div>
-
+<body>
+  <section>
+    <h1 class="gilvon">[gïlvøn.]</h1>
+    <div class="hero">
+      <div class="hero-text">
+        <h1 class="text">Complex tech problems? We handle them with the finesse of a skilled barber</h1>
+        <button id="words">Words</button>
       </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <div class="box">
+      <div class="box1"></div>
+      <div class="box2"></div>
+      <div class="box3"></div>
+    </div>
+  </section>
+
+  <section></section>
+
+ 
+
+    <section>
+        <p class="reveal-type" data-bg-color="#b6b600" data-fg-color="black">Modern UI designers will expand their skillsets to include frontend.</p>
     </section>
 
     <section>
-      <div class="box">
-        <div class="box1"></div>
-        <div class="box2"></div>
-        <div class="box3"></div>
-      </div>
+        <p class="reveal-type" data-bg-color="#353535" data-fg-color="red">The web isn't static anymore, interactivity and motion now dominate.</p>
     </section>
 
-    <section></section>
-  </div>
 
-  <!-- ✅ SplitType (free text splitter) -->
+     <section>
+        <p class="reveal-type" data-bg-color="#cccccc" data-fg-color="teal">Systematically ushering in a new generation of amazing designers from across .</p>
+    </section>
+
+  <!-- SplitType -->
   <script src="https://unpkg.com/split-type"></script>
 
+  <!-- Lazy-load animation scripts -->
   <script type="module">
     document.addEventListener("DOMContentLoaded", async () => {
-      const { default: Lenis } = await import("https://cdn.jsdelivr.net/npm/lenis@1.3.1");
-      const { default: gsap } = await import("https://cdn.skypack.dev/gsap");
-      const { ScrollTrigger } = await import("https://cdn.skypack.dev/gsap/ScrollTrigger");
+      const [{ default: Lenis }, { default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import("https://cdn.jsdelivr.net/npm/lenis@1.3.1"),
+        import("https://cdn.skypack.dev/gsap"),
+        import("https://cdn.skypack.dev/gsap/ScrollTrigger")
+      ]);
 
       gsap.registerPlugin(ScrollTrigger);
 
@@ -153,7 +170,6 @@
       gsap.ticker.add(() => lenis.raf(performance.now()));
       gsap.ticker.lagSmoothing(0);
 
-      // Animate box
       gsap.from(".box1", {
         x: -300,
         duration: 1,
@@ -166,13 +182,13 @@
         }
       });
 
-      // ✅ SplitType setup
+     
       let split = new SplitType('.text', { types: 'words, chars, lines' });
       let animation;
 
       function resetAnimation() {
-        animation && animation.kill();
-        split && split.revert();
+        if (animation) animation.kill();
+        if (split) split.revert();
         split = new SplitType('.text', { types: 'words, chars, lines' });
       }
 
@@ -188,34 +204,53 @@
         });
       });
 
-      document.querySelector("#chars").addEventListener("click", () => {
-        resetAnimation();
-        animation = gsap.from(split.chars, {
-          x: 100,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power4",
-          stagger: 0.04
-        });
-      });
-
-      document.querySelector("#lines").addEventListener("click", () => {
-        resetAnimation();
-        animation = gsap.from(split.lines, {
-          rotationX: -100,
-          transformOrigin: "50% 50% -160px",
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3",
-          stagger: 0.25
-        });
-      });
-
       window.addEventListener("resize", () => {
         split.revert();
         split = new SplitType('.text', { types: 'words, chars, lines' });
       });
+
+
+
+const splitTypes = document.querySelectorAll('.reveal-type')
+
+        splitTypes.forEach((char,i) => {
+
+            const bg = char.dataset.bgColor
+            const fg = char.dataset.fgColor
+
+            // const text = new SplitType(char, { types: 'chars'})
+
+         const text=    new SplitType(char, { types: 'words, chars' })
+
+
+            
+
+            gsap.fromTo(text.chars, 
+                {
+                    color: bg,
+                },
+                {
+                    color: fg,
+                    duration: 0.3,
+                    stagger: 0.02,
+                    scrollTrigger: {
+                        trigger: char,
+                        start: 'top 80%',
+                        end: 'top 20%',
+                        scrub: true,
+                        markers: false,
+                        toggleActions: 'play play reverse reverse'
+                    }
+            })
+        })
+
+        function raf(time) {
+        lenis.raf(time)
+        requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
     });
+
   </script>
 </body>
 </html>
