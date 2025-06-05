@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <main id="app">
+	<section>
+		<img src="https://picsum.photos/1920/1080?grayscale&random=1" alt="Placeholder by Picsum Photos">
+		<h1 class="title stroke" data-text="Scroll Trigger">Scroll Trigger</h1>
+		<p class="sub-title">Scroll-driven animations re-invented, by <a href="https://greensock.com/scrolltrigger/" title="Greensock" target="_blank">Greensock</a></p>
+	</section>
+	<section>
+		<img src="https://picsum.photos/1920/1080?grayscale&random=2" alt="Placeholder by Picsum Photos">
+		<article>
+			<h2 class="title stroke" data-text="Hubot Sans">Hubot Sans</h2>
+			<p class="sub-title">Variable Font Open Source, by <a href="https://github.com/github/hubot-sans" title="Github" target="_blank">Github</a>.</p>
+		</article>
+	</section>
+	<section>
+		<img src="https://picsum.photos/1920/1080?grayscale&random=4" alt="Placeholder by Picsum Photos">
+		<article>
+			<h2 class="title stroke" data-text="Lenis">Lenis</h2>
+			<p class="sub-title">Smooth scroll, lightweight, by <a href="https://github.com/studio-freight/lenis" title="studio-freight" target="_blank">studio-freight</a>.</p>
+		</article>
+	</section>
+	<section>
+		<img src="https://picsum.photos/1920/1080?grayscale&random=3" alt="Placeholder by Picsum Photos">
+		<article>
+			<h2 class="title stroke" data-text="Picsum Photos">Picsum Photos</h2>
+			<p class="sub-title">The Lorem Ipsum for photos, by <a href="https://picsum.photos/" title="David Marby & Nijiko Yonskai" target="_blank">David Marby & Nijiko Yonskai</a>.</p>
+		</article>
+	</section>
+</main>
+
+
+    <style>
+        @font-face {
+	src: url('https://res.cloudinary.com/losrodriguez/raw/upload/v1670565861/Hubot-Sans_xy9zmr.woff2') format('woff2 supports variations'),
+        url('https://res.cloudinary.com/losrodriguez/raw/upload/v1670565861/Hubot-Sans_xy9zmr.woff2') format('woff2-variations');
+	font-family: 'Hubot Sans';
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+}
+
+:root {
+    --text-selection-color:#FFF;
+    --text-selection-bg:#000;
+    --scroll-background:#EEE;
+    --scroll-foreground:#AAA;
+    --scroll-background-over:#666;
+    --scroll-border-radius:5px;
+    --scroll-size:10px;
+}
+
+/* Custom scroll-bar ->> */
+::-webkit-scrollbar {
+    background-color:var(--scroll-background);
+    height:var(--scroll-size);
+    width:var(--scroll-size);
+}
+
+::-webkit-scrollbar-track {
+    background-color:var(--scroll-background);
+    border-radius:var(--scroll-border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color:var(--scroll-foreground);
+    border-radius:var(--scroll-border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color:var(--scroll-background-over);
+}
+
+html {
+    scrollbar-color:var(--scroll-background) var(--scroll-background-over);
+    scrollbar-width:thin;
+    /* FIREFOX */
+    scroll-padding-top:10px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    min-height: 100vh;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	background-color: #000;
+    color: #FFF;
+	font-family: 'Hubot Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    font-variation-settings: 'wght' 400, 'wdth' 100;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeSpeed;
+    font-variation-settings: 'wght' 900, 'wdth' 125;
+    line-height: 1em;
+    mix-blend-mode: difference;
+}
+
+section {
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+img {
+    transform: scale(2);
+    max-width: 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    object-position: center;
+    z-index: -1;
+}
+
+.title {
+    font-size: 8.5vw;
+    line-height: 1em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.title:after {
+    content: attr(data-text);
+    -webkit-text-stroke: chocolate;
+    -webkit-text-stroke-width: 3px;
+	position: absolute;
+	line-height: inherit;
+	left: 0;
+    top: 0;
+	color: transparent;
+	z-index: -1;
+    width: 100%;
+    text-align: center;
+}
+
+.sub-title {
+    font-size: 20px;
+    font-variation-settings: 'wght' 200, 'wdth' 125;
+    background: black;
+    mix-blend-mode: revert;
+    padding: 0.1em 2em;
+    color: yellow;
+    display: inline-block;
+    margin: 0 auto;
+    line-height: 2em;
+}
+
+a {
+    text-transform: uppercase;
+    font-variation-settings: 'wght' 400, 'wdth' 125;
+    font-size: 120%;
+}
+    </style>
+
+
+
+    
+<script type="module" is:inline>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const [
+      { default: gsap },
+      { default: ScrollTrigger },
+      { default: Lenis }
+    ] = await Promise.all([
+      import("https://cdn.skypack.dev/gsap@3.12.0"),
+      import("https://cdn.skypack.dev/gsap@3.12.0/ScrollTrigger"),
+      import("https://cdn.jsdelivr.net/npm/lenis@1.3.1")
+    ]);
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      duration: 0.65,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false
+    });
+
+    let object = { y: 0 };
+    let ySetter = gsap.quickSetter(".title", "y", "px");
+    let clamp = gsap.utils.clamp(-600, 600);
+
+    ScrollTrigger.create({
+      onUpdate: (self) => {
+        let y = clamp(self.getVelocity() / -100);
+        if (Math.abs(y) > Math.abs(object.y)) {
+          object.y = y;
+          gsap.to(object, {
+            y: 0,
+            duration: 1.2,
+            ease: gsap.parseEase("back.out"),
+            overwrite: true,
+            onUpdate: () => ySetter(object.y)
+          });
+        }
+      }
+    });
+
+    gsap.set(".title", {
+      transformOrigin: "center center",
+      force3D: true
+    });
+
+    const getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
+    const sections = document.querySelectorAll("section");
+
+    sections.forEach((section, i) => {
+      const img = section.querySelector("img");
+      let obj = { scale: 1, y: 0, contrast: 1, brightness: 1 };
+      let maxOffset = window.innerHeight * 0.3;
+
+      gsap.fromTo(obj,
+        {
+          y: () => i ? `${-maxOffset * getRatio(section)}px` : "0px",
+          scale: () => i ? 2 : 1,
+          brightness: () => i ? 1 : 0.35,
+          contrast: () => i ? 1 : 2
+        },
+        {
+          y: () => `${maxOffset * (1 - getRatio(section))}px`,
+          ease: "none",
+          duration: 0.35,
+          brightness: () => i ? 0.35 : 1,
+          contrast: () => i ? 2 : 1,
+          scale: () => i ? 1 : 2,
+          scrollTrigger: {
+            trigger: section,
+            start: () => i ? "top bottom" : "top top",
+            end: "bottom center",
+            scrub: true,
+            onUpdate: () => {
+              gsap.to(img, {
+                filter: `contrast(${obj.contrast}) brightness(${obj.brightness})`,
+                duration: 0.15,
+                ease: "none",
+                y: obj.y,
+                scaleX: obj.scale,
+                scaleY: obj.scale
+              });
+            },
+            invalidateOnRefresh: true
+          }
+        });
+    });
+
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  });
+</script>
+
+
+
+  
+    
+</body>
+</html>
