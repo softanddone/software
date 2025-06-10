@@ -578,7 +578,10 @@ height: 300px;
     sm.add("(min-width: 0px)", () => {
       const images = gsap.utils.toArray(".panel__card");
     //   const endTime = 500 * images.length;
-    const endTime = 150 * images.length;
+    // const endTime = 150 * images.length;
+
+    const endTime = window.innerHeight * 0.6 * images.length;
+
 
 
       gsap.set(".panel__stack", {
