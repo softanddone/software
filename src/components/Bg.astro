@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        @import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
+
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("https://fonts.cdnfonts.com/s/64587/PPNeueMontreal-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== CSS VARIABLES ===== */
+:root {
+  /* Colors */
+  --color-bg: #111111;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-text-dim: rgba(255, 255, 255, 0.6);
+  --color-dot: #444;
+  --color-star: rgba(209, 255, 255, 1);
+  /* Typography */
+  --font-body: "TheGoodMonolith", sans-serif;
+  --font-title: "PP Neue Montreal", sans-serif;
+  --font-size-base: 0.75rem;
+  --font-size-h2: 2rem;
+  --font-size-h1: 3rem;
+  --letter-spacing-title: -0.03em;
+  --line-height: 1.4;
+  /* Spacing */
+  --spacing-base: 1rem;
+  --spacing-sm: 0.75rem;
+  --spacing-xs: 0.25rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.8s ease;
+  /* Effects */
+  --blur-amount: 5px;
+}
+
+/* ===== RESET & BASE STYLES ===== */
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: var(--line-height);
+  margin: 0;
+  font-size: var(--font-size-base);
+  overflow-x: hidden;
+}
+
+/* Dust/Scratches background effect for the entire site */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://img.freepik.com/premium-photo/white-dust-scratches-black-background_279525-2.jpg?w=640");
+  background-repeat: repeat;
+  opacity: 0.05;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
+}
+
+h2,
+h3 {
+  font-weight: normal;
+  margin-bottom: var(--spacing-sm);
+}
+
+h2 {
+  font-family: var(--font-title);
+  font-size: var(--font-size-h2);
+  letter-spacing: var(--letter-spacing-title);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+}
+
+p {
+  margin-bottom: var(--spacing-xs);
+  opacity: 0.7;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ===== INTERACTIVE ELEMENTS ===== */
+/* Global link style with hover effect */
+a,
+.links span {
+  position: relative;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 0;
+  display: inline-block;
+  z-index: 1;
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  opacity: 0.7;
+  transition: color var(--transition-medium);
+}
+
+a::after,
+.links span::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--color-text);
+  z-index: -1;
+  transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+a:hover::after,
+.links span:hover::after {
+  width: 100%;
+}
+
+a:hover,
+.links span:hover {
+  color: black;
+  mix-blend-mode: difference;
+  opacity: 1;
+}
+
+/* ===== LAYOUT COMPONENTS ===== */
+.footer {
+  padding: var(--spacing-lg);
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--spacing-base);
+  width: 100%;
+}
+
+/* Grid column assignments */
+.nav {
+  grid-column: 1 / span 3;
+}
+
+.values {
+  grid-column: 5 / span 2;
+}
+
+.location-2 {
+  grid-column: 7 / span 2;
+}
+
+.contact {
+  grid-column: 9 / span 2;
+}
+
+.social {
+  grid-column: 11 / span 2;
+  text-align: right;
+}
+
+/* Bottom bar */
+.bottom-bar {
+  margin-top: auto;
+  padding-top: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--spacing-base);
+  align-items: flex-end;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+.coordinates {
+  grid-column: 1 / span 3;
+  opacity: var(--color-text-dim);
+}
+
+.links {
+  grid-column: 5 / span 4;
+  text-align: center;
+}
+
+.info {
+  grid-column: 9 / span 4;
+  text-align: right;
+  opacity: var(--color-text-dim);
+}
+
+.links span {
+  margin: 0 var(--spacing-base);
+}
+
+/* ===== LOGO COMPONENT ===== */
+.logo-container {
+  margin-bottom: var(--spacing-md);
+  display: block;
+  width: 3rem;
+  height: 1.5rem;
+  position: relative;
+}
+
+.logo-circles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  transition: transform var(--transition-medium);
+  width: 1.4rem;
+  height: 1.4rem;
+  background-color: var(--color-text);
+  top: 50%;
+}
+
+.circle-1 {
+  left: 0;
+  transform: translate(0, -50%);
+}
+
+.circle-2 {
+  left: 0.8rem;
+  transform: translate(0, -50%);
+  mix-blend-mode: exclusion;
+}
+
+.logo-container:hover .circle-1 {
+  transform: translate(-0.5rem, -50%);
+}
+
+.logo-container:hover .circle-2 {
+  transform: translate(0.5rem, -50%);
+}
+
+/* ===== DOT GRID ===== */
+.dot-grid {
+  width: 100%;
+  height: 150px;
+  position: relative;
+  margin-top: var(--spacing-base);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.dot {
+  position: absolute;
+  font-size: 10px;
+  color: var(--color-dot);
+  transition: all var(--transition-fast);
+  will-change: transform, color;
+}
+
+/* ===== WEBGL SECTION ===== */
+.sticky-container {
+  position: relative;
+  height: 500vh;
+  width: 100%;
+  margin: 0;
+}
+
+.webgl-section {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  overflow: hidden;
+  will-change: transform, opacity, filter;
+}
+
+.canvas-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  will-change: transform, opacity, filter;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas#space {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ===== ANIMATED TEXT ===== */
+.animated-text {
+  position: absolute;
+  top: auto;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 40px));
+  color: var(--color-text);
+  font-family: var(--font-title);
+  font-size: var(--font-size-h1);
+  text-align: center;
+  opacity: 0;
+  z-index: 20;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-title);
+  pointer-events: none;
+  width: 80%;
+  max-width: 800px;
+  will-change: opacity, transform, filter;
+  filter: blur(8px);
+  transition: filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== ADDITIONAL SECTION ===== */
+.additional-section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg);
+  position: relative;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.additional-content {
+  max-width: 800px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.additional-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced width for paragraphs */
+.additional-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: var(--spacing-base);
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-transition {
+  position: relative;
+  overflow: hidden;
+}
+
+    </style>
+
+
+<div class="footer">
+  <div class="container">
+    <div class="nav">
+      <div class="logo-container">
+        <div class="logo-circles">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="values">
+      <h3>+Menu</h3>
+      <ul>
+        <li><a href="#">Clarity</a></li>
+        <li><a href="#">Simplicity</a></li>
+        <li><a href="#">Creativity</a></li>
+        <li><a href="#">Authenticity</a></li>
+        <li><a href="#">Connect</a></li>
+      </ul>
+    </div>
+
+    <div class="location-2">
+      <h3>+Location</h3>
+      <p>6357 Selma Ave</p>
+      <p>Los Angeles</p>
+      <p>CA 90028</p>
+    </div>
+
+    <div class="contact">
+      <h3>+Get In Touch</h3>
+      <p>(310) 456-7890</p>
+      <p><a href="mailto:hi@filip.fyi">hi@filip.fyi</a></p>
+    </div>
+
+    <div class="social">
+      <h3>+Social</h3>
+      <ul>
+        <li><a href="https://instagram.com/filipz__">Instagram</a></li>
+        <li><a href="https://x.com/filipz">X / Twitter</a></li>
+        <li><a href="https://linkedin.com/in/filipzrnzevic">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Sticky WebGL container -->
+  <div class="sticky-container" id="stickyContainer">
+    <div class="webgl-section" id="webglSection">
+      <div class="canvas-container" id="canvasContainer">
+        <canvas id="space"></canvas>
+        <div class="animated-text" id="animatedText">
+          CLARITY<br />THROUGH<br />SIMPLICITY
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional 100vh section -->
+  <div class="additional-section section-transition" id="additionalSection">
+    <div class="additional-content" id="additionalContent">
+      <h2>THE ART OF REDUCTION</h2>
+      <p>In a world of constant noise and distraction, true creativity emerges from the space between thoughts. The power of simplicity lies not in what is added, but in what is carefully removed.</p>
+      <p>Our approach strips away the unnecessary, revealing the essential core of every project. We believe that when you eliminate the excess, what remains speaks with greater clarity and resonance.</p>
+      <p>This philosophy guides everything we create—from music production to visual design—allowing the authentic voice to emerge without interference.</p>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="coordinates">
+      <p>34.0522° N, 118.2437° W</p>
+    </div>
+
+    <div class="links">
+      <span>Mindfulness</span>
+      <span>Presence</span>
+    </div>
+
+    <div class="info">
+      <p>Est. 2025 • Summer Days</p>
+    </div>
+  </div>
+
+  <div class="dot-grid" id="dotGrid"></div>
+</div>
+
+
+
+
+
+
+
+    <script type="module">
+  document.addEventListener("DOMContentLoaded", async () => {
+    // Dynamically import required libs
+    const [
+      { default: gsap },
+      { ScrollTrigger }
+    ] = await Promise.all([
+      import("https://cdn.skypack.dev/gsap"),
+      import("https://cdn.skypack.dev/gsap/ScrollTrigger")
+    ]);
+
+    // Register plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Setup canvas and context
+    const canvas = document.getElementById("space");
+    const ctx = canvas.getContext("2d");
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    // Starfield settings
+    const numStars = 1900;
+    const focalLength = canvas.width * 2;
+    let centerX = canvas.width / 2;
+    let centerY = canvas.height / 2;
+    const baseTrailLength = 2;
+    const maxTrailLength = 30;
+
+    // Stars array
+    let stars = [];
+
+    // Animation control
+    let warpSpeed = 0;
+    let animationActive = true;
+
+    // Initialize stars
+    function initializeStars() {
+      stars = [];
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          z: Math.random() * canvas.width,
+          o: 0.5 + Math.random() * 0.5,
+          trail: []
+        });
+      }
+    }
+
+    // Update star positions
+    function moveStars() {
+      for (let i = 0; i < stars.length; i++) {
+        const star = stars[i];
+        // Move star based on warp speed - always forward
+        const speed = 1 + warpSpeed * 50;
+        star.z -= speed;
+        // Reset star position when it passes the viewer
+        if (star.z < 1) {
+          star.z = canvas.width;
+          star.x = Math.random() * canvas.width;
+          star.y = Math.random() * canvas.height;
+          star.trail = [];
+        }
+      }
+    }
+
+    // Draw stars and their trails
+    function drawStars() {
+      // Resize canvas if needed
+      if (
+        canvas.width !== canvas.offsetWidth ||
+        canvas.height !== canvas.offsetHeight
+      ) {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        centerX = canvas.width / 2;
+        centerY = canvas.height / 2;
+      }
+      // Calculate trail length based on warp speed
+      const trailLength = Math.floor(
+        baseTrailLength + warpSpeed * (maxTrailLength - baseTrailLength)
+      );
+      // Clear canvas with fade effect based on warp speed
+      const clearAlpha = 1 - warpSpeed * 0.8;
+      ctx.fillStyle = `rgba(17,17,17,${clearAlpha})`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Draw stars and trails
+      for (let i = 0; i < stars.length; i++) {
+        const star = stars[i];
+        // Calculate screen position with perspective
+        const px = (star.x - centerX) * (focalLength / star.z) + centerX;
+        const py = (star.y - centerY) * (focalLength / star.z) + centerY;
+        // Add position to trail
+        star.trail.push({
+          x: px,
+          y: py
+        });
+        if (star.trail.length > trailLength) {
+          star.trail.shift();
+        }
+        // Draw trail
+        if (star.trail.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(star.trail[0].x, star.trail[0].y);
+          for (let j = 1; j < star.trail.length; j++) {
+            ctx.lineTo(star.trail[j].x, star.trail[j].y);
+          }
+          ctx.strokeStyle = `rgba(209,255,255,${star.o})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+        // Draw star
+        ctx.fillStyle = `rgba(209,255,255,${star.o})`;
+        ctx.fillRect(px, py, 1, 1);
+      }
+    }
+
+    // Animation loop
+    function animate() {
+      if (animationActive) {
+        requestAnimationFrame(animate);
+        moveStars();
+        drawStars();
+      }
+    }
+
+    // Initialize and start animation
+    initializeStars();
+    animate();
+
+    // GSAP ScrollTrigger setup
+    // Create a timeline for the warp effect
+    const warpTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#stickyContainer",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          // 0-300vh (0-60%): Ramp up warp effect
+          if (progress <= 0.6) {
+            warpSpeed = progress / 0.6; // 0 to 1
+          }
+          // 300-400vh (60-80%): Maintain full warp
+          else if (progress <= 0.8) {
+            warpSpeed = 1; // Full warp
+          }
+          // 400-500vh (80-100%): Decrease warp effect
+          else {
+            warpSpeed = 1 - (progress - 0.8) / 0.2; // 1 to 0
+          }
+        }
+      }
+    });
+
+    // Enhanced text animation with blur and better easing
+    const textTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#stickyContainer",
+        start: "12% top", // Start slightly earlier for a longer animation
+        end: "20% top", // End a bit later for a smoother animation
+        scrub: 0.8 // Add slight smoothing to the scrub for more natural movement
+      }
+    });
+
+    // Add enhanced text animation with multi-step sequence
+    textTimeline.to("#animatedText", {
+      opacity: 1, // Full opacity
+      y: 0, // Final position
+      filter: "blur(0px)", // No blur
+      duration: 0.4,
+      ease: "power3.out" // Ease out for a soft landing
+    });
+
+    // Create a timeline for the exit effect
+    const exitTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#stickyContainer",
+        start: "bottom 20%", // Start when the bottom of the container is 20% from the top
+        end: "bottom -10%", // End when it's 10% past the top
+        scrub: true
+      }
+    });
+
+    // Add enhanced exit animations with blur
+    exitTimeline.to(
+      "#animatedText",
+      {
+        opacity: 0,
+        y: -20,
+        filter: "blur(8px)",
+        duration: 0.4,
+        ease: "power2.in"
+      },
+      0
+    );
+    exitTimeline.to(
+      "#webglSection",
+      {
+        opacity: 0,
+        scale: 0.95,
+        ease: "power2.inOut"
+      },
+      0.1
+    ); // Slight delay after text starts fading
+
+    // Animate the additional content section when it comes into view
+    const additionalContentTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#additionalSection",
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    });
+    additionalContentTimeline.to("#additionalContent", {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power2.out"
+    });
+
+    // Handle visibility - stop animation when out of view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Only run animation when section is visible
+          if (entry.isIntersecting) {
+            if (!animationActive) {
+              animationActive = true;
+              animate();
+            }
+          } else {
+            animationActive = false;
+          }
+        });
+      },
+      {
+        threshold: 0
+      }
+    );
+    observer.observe(document.getElementById("stickyContainer"));
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      centerX = canvas.width / 2;
+      centerY = canvas.height / 2;
+    });
+
+    // Create grid of star symbols with improved reactivity
+    const dotGrid = document.getElementById("dotGrid");
+    const gridWidth = dotGrid.offsetWidth;
+    const gridHeight = dotGrid.offsetHeight;
+
+    // Increase rows by 25%
+    const originalHeight = 150;
+    const increasedHeight = originalHeight * 1.25;
+    dotGrid.style.height = `${increasedHeight}px`;
+
+    // Calculate exact spacing to fit perfectly, accounting for container padding
+    const containerPadding = 2 * 16; // 2rem padding converted to pixels
+    const fullWidth = window.innerWidth; // Full window width
+
+    // Calculate number of columns to span the entire width including padding
+    const desiredCols = Math.ceil(fullWidth / 20); // Approximate number of columns
+    const desiredRows = Math.ceil(increasedHeight / 20); // Approximate number of rows
+
+    // Calculate exact spacing to fit perfectly
+    const spacingX = fullWidth / (desiredCols - 1);
+    const spacingY = increasedHeight / (desiredRows - 1);
+
+    // Create dots with extended width to cover the entire viewport
+    function createDotGrid() {
+      dotGrid.innerHTML = "";
+      for (let y = 0; y < desiredRows; y++) {
+        for (let x = 0; x < desiredCols; x++) {
+          const dot = document.createElement("div");
+          dot.className = "dot";
+          dot.textContent = "✦"; // Star symbol
+          // Position dots relative to the container but extend beyond its padding
+          const xPos = x * spacingX - containerPadding;
+          dot.style.left = `${xPos}px`;
+          dot.style.top = `${y * spacingY}px`;
+          dotGrid.appendChild(dot);
+        }
+      }
+    }
+    createDotGrid();
+
+  }); // End DOMContentLoaded
+</script>
+
+    
+</body>
+</html>

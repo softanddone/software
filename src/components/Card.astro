@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <style>
+        /* GENERAL STYLE */
+body {
+  font-family: "Public Sans", sans-serif;
+  color: #101828;
+}
+
+.primary-text-color {
+  color: #101828;
+}
+
+.secondary-text-color {
+  color: #3065fa;
+}
+
+.text-gray {
+  color: #344054;
+}
+
+.text-gray-light {
+  color: #667085;
+}
+
+.bg-blue {
+  background: #3065fa;
+}
+
+.bg-purple {
+  background: #9a93f4;
+}
+
+.bg-skyblue-light {
+  background: #bce5f6;
+}
+
+.bg-orange-light {
+  background: #fcd1a6;
+}
+
+.bg-green-light {
+  background: #b5e5b8;
+}
+
+.bg-light {
+  background: #fefdf6 !important;
+}
+
+.btn-primary {
+  background: #3065fa;
+}
+.btn-primary:hover {
+  background: #3065fa;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #101828;
+  position: relative;
+  z-index: 1;
+}
+.btn-secondary:hover {
+  color: #101828;
+  background: #fff;
+}
+
+.btn-black-shadow::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 8px;
+  transition: box-shadow 0.2s linear;
+}
+.btn-black-shadow:hover::before {
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8);
+}
+
+.btn-blue-shadow::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 0px rgba(47, 121, 227, 0.8);
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 8px;
+  transition: box-shadow 0.2s linear;
+}
+.btn-blue-shadow:hover::before {
+  box-shadow: 6px 6px 0px rgba(47, 121, 227, 0.8);
+}
+
+.container {
+  max-width: 100rem;
+}
+
+.btn {
+  padding: 0.625rem 1.875rem;
+  border: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.btn-large {
+  padding: 1.125rem 3.125rem;
+  font-size: 1.125rem;
+}
+
+.btn-outline {
+  border: 1px solid #101828;
+}
+.btn-outline:hover {
+  border: 1px solid #101828;
+}
+
+.spacer-y {
+  padding: 7.5rem 0;
+}
+
+.spacer-top {
+  padding-top: 7.5rem;
+}
+
+.spacer-bottom {
+  padding-bottom: 7.5rem;
+}
+
+.spacer-md {
+  padding: 3.75rem 0px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 3.125rem;
+}
+
+h3 {
+  font-size: 2.125rem;
+}
+
+.f-12 {
+  font-size: 12px;
+}
+
+.font-20 {
+  font-size: 1.25rem;
+}
+
+.font-18 {
+  font-size: 1.125rem;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* PANELS */
+.panel {
+  position: relative;
+  z-index: 9;
+}
+
+.panel__options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.panel__options span {
+  font-size: 14px;
+}
+.panel__options span:first-child:hover {
+  color: #9a93f4;
+}
+.panel__options span:nth-child(2):hover {
+  color: #bce5f6;
+}
+.panel__options span:nth-child(3):hover {
+  color: #fcd1a6;
+}
+.panel__options span:last-child:hover {
+  color: #b5e5b8;
+}
+
+.panel__stack {
+  --spacer: 20px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  align-items: center;
+  justify-items: center;
+  overflow-y: visible;
+}
+.panel__stack .panel__card {
+  grid-area: 1/1/2/2;
+  border-radius: 30px;
+  padding: 2.5rem;
+  position: absolute;
+  /* height: 35.625rem; */
+  height: 400px;
+  width: 400px;
+  will-change: transform;
+}
+.panel__stack .panel__card:first-child {
+  top: calc(var(--spacer) * 1);
+  z-index: 1;
+}
+.panel__stack .panel__card:nth-child(2) {
+  top: calc(var(--spacer) * 2);
+  z-index: 2;
+}
+.panel__stack .panel__card:nth-child(3) {
+  top: calc(var(--spacer) * 3);
+  z-index: 3;
+}
+.panel__stack .panel__card:last-child {
+  top: calc(var(--spacer) * 4);
+  z-index: 4;
+}
+.panel__stack .panel__card ul {
+  margin: 0;
+  padding-right: 30px;
+}
+.panel__stack .panel__card ul li {
+  position: relative;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  padding-left: 27px;
+}
+.panel__stack .panel__card ul li::before {
+  content: url(../images/listing-icon.svg);
+  position: absolute;
+  top: 0px;
+  left: 0;
+}
+.panel__stack .panel__card ul li:last-child {
+  margin-bottom: 0;
+}
+.panel__stack .panel__card .green-bullets li::before {
+  content: url(../images/green-list-icon.svg);
+  position: absolute;
+  top: 0px;
+  left: 0;
+}
+.panel__stack .panel__card .orange-bullets li::before {
+  content: url(../images/orange-list-icon.svg);
+  position: absolute;
+  top: 0px;
+  left: 0;
+}
+.panel__stack .panel__card picture {
+  position: relative;
+  right: -10px;
+}
+
+.panel__content {
+  width: 48%;
+}
+
+.panel__image {
+  width: 52%;
+}
+.panel__image img {
+  max-height: 30rem;
+}
+
+.panel__card__img {
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 48px;
+  max-width: 450px;
+  width: 100%;
+  margin-left: auto;
+  position: relative;
+}
+
+.sticky-notes {
+  width: 209px;
+  padding: 10px 15px;
+  position: absolute;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  left: -70px;
+  bottom: 30px;
+}
+.sticky-notes .draw-line {
+  position: absolute;
+  top: -70px;
+  left: -80px;
+}
+
+.sticky-notes__items {
+  gap: 10px;
+}
+.sticky-notes__items div {
+  padding: 10px 30px;
+  border-radius: 8px;
+}
+.sticky-notes__items div:first-child {
+  background-color: #fad1d1;
+  color: #d92d20;
+}
+.sticky-notes__items div:nth-child(2) {
+  background-color: #f4fad1;
+  color: #f79009;
+}
+.sticky-notes__items div:last-child {
+  background-color: #d1fadf;
+  color: #039855;
+}
+
+.sticky-card {
+  padding: 10px 15px;
+  position: absolute;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  right: -70px;
+  top: 30px;
+  max-width: 210px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.sticky-card .checkbox {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border: 1px solid #d0d5dd;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
+.sticky-cards__items {
+  gap: 10px;
+}
+
+.sticky-card.sticky-card-left {
+  bottom: 50px;
+  left: -100px;
+  top: initial;
+}
+
+.panel__card--one .panel__card__img {
+  background-color: #a9a3ff;
+}
+
+.panel__card--two .panel__card__img {
+  background-color: #d1f2ff;
+}
+
+.panel__card--three .panel__card__img {
+  background-color: #ffc183;
+}
+
+.panel__card--four .panel__card__img {
+  background-color: #98d89c;
+}
+
+
+@media screen and (min-width:0px) and (max-width:700px) {
+    
+.panel__stack .panel__card {
+width:300px;
+height: 300px;
+}
+
+}
+    </style>
+  <section class="panel spacer-y">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel__options mb-2">
+          <span data-target="b" class="active" role="button">Smart Tools &amp; Solutions</span>
+          <span data-target="c" role="button">Clear Documentation</span>
+          <span data-target="d" role="button">Custom &amp; Ready-to-Use Features</span>
+          <span data-target="e" role="button">Real-Time Insights</span>
+        </div>
+
+        <div class="panel__stack">
+          <div class="panel__card panel__card--one text-white bg-purple overflow-hidden">
+            <div class="row">
+              <div class="col-md-6 panel__content">
+                <h3 class="section__heading">Powerful software, made simple</h3>
+                <p>We help you solve real problems with easy-to-use technology—no complicated setup, just results.</p>
+                <ul class="list-unstyled">
+                  <li>Smart learning built in: Our tools adapt to how you work, improving every step you take.</li>
+                  <li>No clutter: You get only what you need to get things done faster and better.</li>
+                  <li>Clear explanations that help you understand features as you go.</li>
+                  <li>Tailor your experience: Adjust settings and workflows to fit your needs perfectly.</li>
+                </ul>
+                <a href="javascript:void(0)" class="btn btn-secondary btn-black-shadow mt-4">Give it a try</a>
+              </div>
+              <div class="col-md-6 panel__image text-end">
+                <picture>
+                  <source media="(min-width:280px)" srcset="https://indeedtraining.in/nursing-landing/images/panel-img-1.png">
+                  <source media="(min-width:24px)" srcset="https://indeedtraining.in/nursing-landing/images/panel-img-1.png">
+                  <img src="https://indeedtraining.in/nursing-landing/images/panel-img-1.png" alt="panel">
+                </picture>
+
+                <div class="panel__card__img">
+                  <img src="images/girl.svg" alt="girl">
+                  <div class="sticky-notes text-center">
+                    <img src="https://indeedtraining.in/nursing-landing/images/panel-img-1.png" alt="line" class="draw-line">
+                    <span class="primary-text-color">How helpful was this feature?</span>
+                    <div class="sticky-notes__items d-flex flex-column">
+                      <div>Not really</div>
+                      <div>Neutral</div>
+                      <div>Very helpful</div>
+                    </div>
+                  </div>
+
+                  <div class="sticky-card primary-text-color">
+                    <span>Choose how you explore</span>
+                    <div class="sticky-cards__items d-flex flex-column">
+                      <div><span class="checkbox"></span> Guided Mode</div>
+                      <div><span class="checkbox"></span> Quick Mode</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__card panel__card--two bg-skyblue-light">
+            <div class="row align-items-center h-100">
+              <div class="col-md-6 panel__content">
+                <h3 class="section__heading">Simple guides that save time</h3>
+                <p class="text-gray mb-0">Our clear step-by-step guides, how-to videos, and short help articles give you just the right amount of info—so you’re never stuck.</p>
+                <a href="javascript:void(0)" class="btn btn-secondary btn-black-shadow mt-4">Explore easy how-tos</a>
+              </div>
+              <div class="col-md-6 panel__image text-end">
+                <picture>
+                  <source srcset="https://indeedtraining.in/nursing-landing/images/panel-img-2.png">
+                  <source srcset="https://indeedtraining.in/nursing-landing/images/panel-img-2.png">
+                  <img src="https://indeedtraining.in/nursing-landing/images/images/panel-img-2.png" alt="panel">
+                </picture>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__card panel__card--three bg-orange-light">
+            <div class="row align-items-center h-100">
+              <div class="col-md-6 panel__content">
+                <h3 class="section__heading">Work your way</h3>
+                <ul class="f-18 list-unstyled text-gray orange-bullets">
+                  <li>Boost your memory and confidence with our easy-to-use tools.</li>
+                  <li>Build your own shortcuts and reusable templates.</li>
+                  <li>Or pick from ready-made tools created by experts.</li>
+                  <li>Access everything anytime, from anywhere.</li>
+                </ul>
+                <a href="javascript:void(0)" class="btn btn-secondary btn-black-shadow mt-4">See what’s possible</a>
+              </div>
+              <div class="col-md-6 panel__image text-end">
+                <picture>
+                  <source srcset="https://indeedtraining.in/nursing-landing/images/panel-img-3.png">
+                  <source srcset="https://indeedtraining.in/nursing-landing/images/panel-img-3.png">
+                  <img src="https://indeedtraining.in/nursing-landing/images/images/panel-img-3.png" alt="panel">
+                </picture>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__card panel__card--four bg-green-light">
+            <div class="row h-100 align-items-center">
+              <div class="col-md-6 panel__content">
+                <h3 class="section__heading">See what’s working</h3>
+                <p class="text-gray">We track your progress so you don’t have to. Get clear insights to help you work smarter—not harder.</p>
+                <ul class="f-18 list-unstyled text-gray green-bullets">
+                  <li>Follow your progress with simple dashboards.</li>
+                  <li>Spot trends and improve your results.</li>
+                  <li>Personalized tips to help you grow faster.</li>
+                </ul>
+                <a href="javascript:void(0)" class="btn btn-secondary btn-black-shadow mt-4">Get smarter insights</a>
+              </div>
+              <div class="col-md-6 panel__image text-end">
+                <picture>
+                  <source srcset="https://indeedtraining.in/nursing-landing/images/panel-img-4.png">
+                  <source media="(min-width:24px)" srcset="https://indeedtraining.in/nursing-landing/images/panel-img-4.png">
+                  <img src="https://indeedtraining.in/nursing-landing/images/images/panel-img-4.png" alt="panel">
+                </picture>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ <script type="module">
+  document.addEventListener("DOMContentLoaded", async () => {
+    const [
+      { default: gsap },
+      { ScrollTrigger },
+      { ScrollToPlugin }
+    ] = await Promise.all([
+      import("https://cdn.skypack.dev/gsap"),
+      import("https://cdn.skypack.dev/gsap/ScrollTrigger"),
+      import("https://cdn.skypack.dev/gsap/ScrollToPlugin")
+    ]);
+
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const sm = gsap.matchMedia();
+
+    sm.add("(min-width: 0px)", () => {
+      const images = gsap.utils.toArray(".panel__card");
+      const endTime = 500 * images.length;
+
+      gsap.set(".panel__stack", {
+        height: () => {
+          const offset = 20;
+          const cards = document.querySelectorAll(".panel__card");
+          const height = cards[0].offsetHeight;
+          return height + cards.length * offset;
+        }
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".panel",
+          fastScrollEnd: true,
+          pin: true,
+          start: "50% 370px",
+          end: `+=${endTime}px`,
+          pinSpacing: true,
+          scrub: 0.2,
+          markers: false
+        }
+      });
+
+      tl.set(".panel__options > span:nth-child(1)", {
+        borderBottom: "1px solid #667085"
+      });
+
+      tl.to(".panel__card--one", {
+        scale: 0.95,
+        duration: 0.3,
+        transformOrigin: "top"
+      }, "b");
+
+      tl.set(".panel__options > span:nth-child(1)", {
+        borderBottom: "1px solid transparent"
+      });
+
+      tl.set(".panel__options > span:nth-child(2)", {
+        borderBottom: "1px solid #667085"
+      });
+
+      tl.from(".panel__card--two", { y: () => window.innerHeight });
+
+      tl.to(".panel__card--two", {
+        scale: 0.95,
+        duration: 0.3,
+        transformOrigin: "top"
+      }, "c");
+
+      tl.to(".panel__card--one", {
+        scale: 0.9,
+        duration: 0.3,
+        transformOrigin: "top"
+      }, "c");
+
+      tl.set(".panel__options > span:nth-child(2)", {
+        borderBottom: "1px solid transparent"
+      });
+
+      tl.set(".panel__options > span:nth-child(3)", {
+        borderBottom: "1px solid #667085"
+      });
+
+      tl.from(".panel__card--three", { y: () => window.innerHeight });
+
+      tl.to(".panel__card--one", {
+        scale: 0.85,
+        duration: 0.3,
+        transformOrigin: "top"
+      }, "d");
+
+      tl.to(".panel__card--two", {
+        scale: 0.9,
+        duration: 0.3,
+        transformOrigin: "top"
+      }, "d");
+
+      tl.to(".panel__card--three", {
+        scale: 0.95,
+        duration: 0.3,
+        transformOrigin: "top"
+      }, "d");
+
+      tl.set(".panel__options > span:last-child", {
+        borderBottom: "1px solid #667085"
+      }, "f");
+
+      tl.set(".panel__options > span:nth-child(3)", {
+        borderBottom: "1px solid transparent"
+      }, "f");
+
+      tl.from(".panel__card--four", { y: () => window.innerHeight });
+
+      tl.set(".panel__options > span:last-child", {
+        borderBottom: "1px solid #667085"
+      }, "e");
+
+      tl.set(".panel__options > span:nth-child(3)", {
+        borderBottom: "1px solid transparent"
+      }, "e");
+
+      function gotSeek(id) {
+        gsap.to(window, {
+          duration: 0.3,
+          scrollTo: { y: tl.scrollTrigger.labelToScroll(id) + 10 },
+          ease: "power2.out"
+        });
+        tl.tweenTo(id, {
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+
+      const links = gsap.utils.toArray(".panel__options span");
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          gotSeek(link.dataset.target);
+        });
+      });
+    });
+  });
+</script>
+
+
+
+</body>
+</html>
