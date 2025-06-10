@@ -417,6 +417,23 @@ height: 300px;
 }
 
 }
+
+@media screen and (max-width: 700px) {
+  .panel__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .panel__stack .panel__card {
+    position: static;
+    width: 100%;
+    max-width: 90%;
+    height: auto;
+  }
+}
+
     </style>
   <section class="panel spacer-y">
   <div class="container">
