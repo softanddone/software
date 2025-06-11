@@ -300,7 +300,8 @@ img {
 }
 
 .panel__content {
-  width: 48%;
+  width: 100%;
+  
 }
 
 .panel__image {
@@ -320,6 +321,8 @@ img {
   width: 100%;
   margin-left: auto;
   position: relative;
+  background: red!important;
+  z-index: 4;
 }
 
 .sticky-notes {
@@ -413,7 +416,7 @@ img {
     
 .panel__stack .panel__card {
 width:300px;
-height: 300px;
+height: 600px;
 }
 
 }
@@ -429,7 +432,13 @@ height: 300px;
     height: auto;
     max-width: 320px;
   } */
+
+  .section__heading{
+    text-align: center;
 }
+}
+
+
 
 
 
@@ -440,10 +449,10 @@ height: 300px;
     <div class="row">
       <div class="col-md-12">
         <div class="panel__options mb-2">
-          <span data-target="b" class="active" role="button">Smart Tools &amp; Solutions</span>
-          <span data-target="c" role="button">Clear Documentation</span>
-          <span data-target="d" role="button">Custom &amp; Ready-to-Use Features</span>
-          <span data-target="e" role="button">Real-Time Insights</span>
+          <span data-target="b" class="active" role="button">Home</span>
+          <span data-target="c" role="button">About</span>
+          <span data-target="d" role="button">Contact</span>
+          <span data-target="e" role="button">News</span>
         </div>
 
         <div class="panel__stack">
@@ -461,13 +470,13 @@ height: 300px;
                 <a href="javascript:void(0)" class="btn btn-secondary btn-black-shadow mt-4">Give it a try</a>
               </div>
               <div class="col-md-6 panel__image text-end">
-                <picture>
+                <!-- <picture>
                   <source media="(min-width:280px)" srcset="https://indeedtraining.in/nursing-landing/images/panel-img-1.png">
                   <source media="(min-width:24px)" srcset="https://indeedtraining.in/nursing-landing/images/panel-img-1.png">
                   <img src="https://indeedtraining.in/nursing-landing/images/panel-img-1.png" alt="panel">
-                </picture>
+                </picture> -->
 
-                <div class="panel__card__img">
+                <!-- <div class="panel__card__img">
                   <img src="images/girl.svg" alt="girl">
                   <div class="sticky-notes text-center">
                     <img src="https://indeedtraining.in/nursing-landing/images/panel-img-1.png" alt="line" class="draw-line">
@@ -486,7 +495,7 @@ height: 300px;
                       <div><span class="checkbox"></span> Quick Mode</div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
               </div>
             </div>
@@ -506,6 +515,11 @@ height: 300px;
                   <img src="https://indeedtraining.in/nursing-landing/images/images/panel-img-2.png" alt="panel">
                 </picture>
               </div>
+
+
+
+
+
             </div>
           </div>
 
@@ -546,7 +560,7 @@ height: 300px;
               <div class="col-md-6 panel__image text-end">
                 <picture>
                   <source srcset="https://indeedtraining.in/nursing-landing/images/panel-img-4.png">
-                  <source media="(min-width:24px)" srcset="https://indeedtraining.in/nursing-landing/images/panel-img-4.png">
+                  <source srcset="https://indeedtraining.in/nursing-landing/images/panel-img-4.png">
                   <img src="https://indeedtraining.in/nursing-landing/images/images/panel-img-4.png" alt="panel">
                 </picture>
               </div>
@@ -601,7 +615,7 @@ height: 300px;
           start: "50% 370px",
           end: `+=${endTime}px`,
           pinSpacing: true,
-          scrub: 5,
+          scrub: 2,
           markers: false
         }
       });
