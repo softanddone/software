@@ -595,7 +595,7 @@ height: 600px;
   </div>
 </section>
 
- <script type="module">
+<script type="module">
   document.addEventListener("DOMContentLoaded", async () => {
     const [
       { default: gsap },
@@ -613,13 +613,9 @@ height: 600px;
 
     sm.add("(min-width: 0px)", () => {
       const images = gsap.utils.toArray(".panel__card");
-    //   const endTime = 500 * images.length;
-    // const endTime = 150 * images.length;
+      const endTime = window.innerHeight * 0.6 * images.length;
 
-    const endTime = window.innerHeight * 0.6 * images.length;
-
-
-
+      // Pre-set panel stack height
       gsap.set(".panel__stack", {
         height: () => {
           const offset = 20;
@@ -627,6 +623,23 @@ height: 600px;
           const height = cards[0].offsetHeight;
           return height + cards.length * offset;
         }
+      });
+
+      // Set initial state: first card visible, others hidden
+      gsap.set(".panel__card", {
+        opacity: 0,
+        filter: "blur(100px)",
+        visibility: "hidden",
+        rotateX: -90,
+        transformOrigin: "top center"
+      });
+
+      // First card default visible immediately
+      gsap.set(".panel__card--one", {
+        opacity: 1,
+        filter: "blur(0px)",
+        visibility: "visible",
+        rotateX: 0
       });
 
       const tl = gsap.timeline({
@@ -642,84 +655,88 @@ height: 600px;
         }
       });
 
+      // Panel 1 highlight
       tl.set(".panel__options > span:nth-child(1)", {
         borderBottom: "1px solid #667085"
       });
 
+      // Animate card 1 scale
       tl.to(".panel__card--one", {
         scale: 0.95,
         duration: 0.3,
         transformOrigin: "top"
       }, "b");
 
+      // Panel 2
       tl.set(".panel__options > span:nth-child(1)", {
         borderBottom: "1px solid transparent"
       });
-
       tl.set(".panel__options > span:nth-child(2)", {
         borderBottom: "1px solid #667085"
       });
 
-      tl.from(".panel__card--two", { y: () => window.innerHeight });
-
       tl.to(".panel__card--two", {
-        scale: 0.95,
-        duration: 0.3,
-        transformOrigin: "top"
-      }, "c");
+        rotateX: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        visibility: "visible",
+        duration: 0.6,
+        ease: "power2.out"
+      });
 
       tl.to(".panel__card--one", {
         scale: 0.9,
-        duration: 0.3,
-        transformOrigin: "top"
+        duration: 0.3
       }, "c");
 
+      // Panel 3
       tl.set(".panel__options > span:nth-child(2)", {
         borderBottom: "1px solid transparent"
       });
-
       tl.set(".panel__options > span:nth-child(3)", {
         borderBottom: "1px solid #667085"
       });
 
-      tl.from(".panel__card--three", { y: () => window.innerHeight });
+      tl.to(".panel__card--three", {
+        rotateX: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        visibility: "visible",
+        duration: 0.6,
+        ease: "power2.out"
+      });
 
       tl.to(".panel__card--one", {
         scale: 0.85,
-        duration: 0.3,
-        transformOrigin: "top"
+        duration: 0.3
       }, "d");
-
       tl.to(".panel__card--two", {
         scale: 0.9,
-        duration: 0.3,
-        transformOrigin: "top"
+        duration: 0.3
       }, "d");
-
       tl.to(".panel__card--three", {
         scale: 0.95,
-        duration: 0.3,
-        transformOrigin: "top"
+        duration: 0.3
       }, "d");
 
+      // Panel 4
       tl.set(".panel__options > span:last-child", {
         borderBottom: "1px solid #667085"
       }, "f");
-
       tl.set(".panel__options > span:nth-child(3)", {
         borderBottom: "1px solid transparent"
       }, "f");
 
-      tl.from(".panel__card--four", { y: () => window.innerHeight });
+      tl.to(".panel__card--four", {
+        rotateX: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        visibility: "visible",
+        duration: 0.6,
+        ease: "power2.out"
+      });
 
-      tl.set(".panel__options > span:last-child", {
-        borderBottom: "1px solid #667085"
-      }, "e");
-
-      tl.set(".panel__options > span:nth-child(3)", {
-        borderBottom: "1px solid transparent"
-      }, "e");
-
+      // Scroll seeker functionality
       function gotSeek(id) {
         gsap.to(window, {
           duration: 0.3,
