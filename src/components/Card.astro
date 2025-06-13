@@ -1,3 +1,8 @@
+---
+import Test from "./Test.astro";
+import Text from "./Text.astro";
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -257,6 +262,8 @@ img {
   /* height: 35.625rem; */
   height: 450px;
   width: 400px;
+  /* width: 100vw;
+  height: 100vh; */
   will-change: transform;
   /* background: red; */
 }
@@ -466,6 +473,11 @@ height: 600px;
 }
 }
 
+.testPage{
+    width: 100vw!important;;
+    height: 100vh!important;
+    overflow: hidden!important;
+}
 
 
 
@@ -548,7 +560,10 @@ height: 600px;
 
 
 
-            </div>
+            </div> -->
+
+            <!-- <Text/> -->
+
           </div>
 
           <div class="panel__card panel__card--three bg-orange-light">
