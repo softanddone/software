@@ -109,12 +109,11 @@
   @supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
     [data-animate='true'] li {
       opacity: 0.2;
-      animation-name: brighten, fluid-flow;
+      animation-name: brighten;
       animation-fill-mode: both;
-      animation-timing-function: linear, cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      animation-range: cover calc(50% - 1lh) calc(50% + 1lh), entry 0% exit 100%;
-      animation-timeline: view(), view();
-      animation-duration: auto, auto;
+      animation-timing-function: linear;
+      animation-range: cover calc(50% - 1lh) calc(50% + 1lh);
+      animation-timeline: view();
     }
 
     [data-animate='true'] li:first-of-type {
@@ -136,52 +135,6 @@
       }
       100% {
         opacity: var(--end-opacity, 0.2);
-      }
-    }
-
-    @keyframes fluid-flow {
-      0% {
-        transform: translateX(-30px) scale(0.95);
-        filter: blur(2px);
-      }
-      20% {
-        transform: translateX(-15px) scale(0.98);
-        filter: blur(1px);
-      }
-      50% {
-        transform: translateX(0) scale(1);
-        filter: blur(0px);
-      }
-      80% {
-        transform: translateX(15px) scale(0.98);
-        filter: blur(1px);
-      }
-      100% {
-        transform: translateX(30px) scale(0.95);
-        filter: blur(2px);
-      }
-    }
-  }
-
-  /* Fallback fluid animation for browsers without scroll-driven animations */
-  @supports not (animation-timeline: scroll()) {
-    [data-animate='true'] li {
-      animation: fluid-flow-fallback 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-      animation-delay: calc(var(--i) * 0.1s);
-    }
-
-    @keyframes fluid-flow-fallback {
-      0%, 100% {
-        transform: translateX(0) scale(1);
-        filter: blur(0px);
-      }
-      25% {
-        transform: translateX(-8px) scale(0.98);
-        filter: blur(0.5px);
-      }
-      75% {
-        transform: translateX(8px) scale(0.98);
-        filter: blur(0.5px);
       }
     }
   }
