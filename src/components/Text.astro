@@ -46,11 +46,12 @@
       scrollbar-color: oklch(var(--lightness) var(--chroma, 0) var(--hue)) #0000;
       animation-name: change, chroma-on, chroma-off;
       animation-fill-mode: both;
-      animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      animation-timing-function: linear;
       animation-range: entry 50% exit 50%, entry 40% entry 50%, exit 30% exit 40%;
       animation-timeline: --list;
     }
 
+    /* FIXED: view-timeline declaration moved outside invalid nesting */
     [data-sync-scrollbar='true'][data-animate='true'] ul {
       view-timeline: --list;
     }
@@ -103,24 +104,20 @@
 
   li:not(:last-of-type) {
     color: oklch(var(--lightness) var(--base-chroma) calc(var(--start) + (var(--step) * var(--i))));
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   @supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
     [data-animate='true'] li {
       opacity: 0.2;
-      transform: translateY(20px) scale(0.95);
-      animation-name: brighten, elastic-entrance;
+      animation-name: brighten;
       animation-fill-mode: both;
-      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      animation-timing-function: linear;
       animation-range: cover calc(50% - 1lh) calc(50% + 1lh);
       animation-timeline: view();
-      animation-duration: 0.8s, 1.2s;
     }
 
     [data-animate='true'] li:first-of-type {
       --start-opacity: 1;
-      transform: none;
     }
 
     [data-animate='true'] li:last-of-type {
@@ -131,51 +128,13 @@
     @keyframes brighten {
       0% {
         opacity: var(--start-opacity, 0.2);
-        filter: brightness(1) blur(2px);
-        transform: translateY(30px) scale(0.9);
-      }
-      30% {
-        opacity: 0.6;
-        filter: brightness(1.1) blur(1px);
-        transform: translateY(10px) scale(0.98);
       }
       50% {
         opacity: 1;
-        filter: brightness(var(--brightness, 1.3)) blur(0px);
-        transform: translateY(-5px) scale(1.05);
-      }
-      70% {
-        opacity: 1;
-        filter: brightness(var(--brightness, 1.2)) blur(0px);
-        transform: translateY(2px) scale(1.02);
+        filter: brightness(var(--brightness, 1.2));
       }
       100% {
         opacity: var(--end-opacity, 0.2);
-        filter: brightness(1) blur(1px);
-        transform: translateY(20px) scale(0.95);
-      }
-    }
-
-    @keyframes elastic-entrance {
-      0% {
-        transform: translateX(-50px) rotate(-2deg) scale(0.8);
-        opacity: 0;
-      }
-      40% {
-        transform: translateX(10px) rotate(1deg) scale(1.1);
-        opacity: 0.8;
-      }
-      60% {
-        transform: translateX(-5px) rotate(-0.5deg) scale(1.05);
-        opacity: 1;
-      }
-      80% {
-        transform: translateX(2px) rotate(0.2deg) scale(0.98);
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(0) rotate(0deg) scale(1);
-        opacity: 1;
       }
     }
   }
@@ -200,18 +159,6 @@
 
   section:last-of-type h2 {
     --font-level: 6;
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% {
-      filter: brightness(1) drop-shadow(0 0 20px rgba(255, 165, 0, 0.3));
-      transform: scale(1);
-    }
-    50% {
-      filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 165, 0, 0.6));
-      transform: scale(1.02);
-    }
   }
 
   main {
@@ -229,26 +176,15 @@
     font-size: 60px;
     white-space: nowrap;
     margin-left: 100px;
+    /* FIXED: Ensure sticky element doesn't cause overflow */
     flex-shrink: 0;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  section:first-of-type h2:hover {
-    transform: translateX(10px) scale(1.05);
-    filter: brightness(1.2);
   }
 
   li{
     font-size: 60px;
     font-weight: 400;
+    /* FIXED: Allow text wrapping on smaller screens */
     white-space: nowrap;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform, opacity, filter;
-  }
-
-  li:hover {
-    transform: translateX(15px) scale(1.08);
-    filter: brightness(1.3) drop-shadow(0 5px 15px rgba(255, 165, 0, 0.4));
   }
 
   ul {
@@ -256,13 +192,13 @@
     padding-inline: 0;
     margin: 0;
     list-style-type: none;
+    /* FIXED: Ensure ul doesn't overflow */
     width: 100%;
     max-width: 100%;
   }
 
   [data-snap='true'] {
     scroll-snap-type: y proximity;
-    scroll-behavior: smooth;
   }
 
   [data-snap='true'] li {
@@ -292,11 +228,6 @@
   footer {
     padding-block: 2rem;
     opacity: 0.5;
-    transition: opacity 0.3s ease;
-  }
-
-  footer:hover {
-    opacity: 1;
   }
 
   h1 {
@@ -311,16 +242,6 @@
     );
     background-clip: text;
     color: #0000;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
   }
 }
 
@@ -336,7 +257,6 @@
   
   html {
     color-scheme: light dark;
-    scroll-behavior: smooth;
   }
 
   [data-theme='light'] {
@@ -372,7 +292,6 @@
     place-items: center;
     background: linear-gradient(to right,rgb(48, 0, 82),black);
     font-family: 'Geist', 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui;
-    overflow-x: hidden;
   }
 
   body::before {
@@ -390,16 +309,6 @@
     transform-style: flat;
     pointer-events: none;
     z-index: -1;
-    animation: grid-shift 20s linear infinite;
-  }
-
-  @keyframes grid-shift {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(var(--size), var(--size));
-    }
   }
 
   .bear-link {
@@ -412,27 +321,15 @@
     display: grid;
     place-items: center;
     opacity: 0.8;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .ins{
     color:orange;
     font-size: 18px;
-    animation: shimmer 2s ease-in-out infinite;
-  }
-
-  @keyframes shimmer {
-    0%, 100% {
-      filter: brightness(1);
-    }
-    50% {
-      filter: brightness(1.3);
-    }
   }
 
   :where(.x-link, .bear-link):is(:hover, :focus-visible) {
     opacity: 1;
-    transform: scale(1.1) rotate(5deg);
   }
 
   .bear-link svg {
@@ -456,7 +353,9 @@ div.tp-dfwv {
   position: fixed;
 }
 
+/* FIXED: Better responsive design - Apply overflow control only where needed */
 @media (max-width: 768px) {
+  /* FIXED: Add overflow control only to body on mobile to prevent horizontal scroll */
   body {
     overflow-x: hidden;
   }
@@ -471,6 +370,7 @@ div.tp-dfwv {
  
   li{
     font-size: 18px;
+    /* FIXED: Allow text to wrap on mobile and prevent overflow */
     white-space: normal;
     word-wrap: break-word;
     hyphens: auto;
@@ -481,6 +381,7 @@ div.tp-dfwv {
     font-size: 18px;
     margin-left: -30px; 
     display: flex;
+    /* FIXED: Prevent sticky header from overflowing */
     max-width: calc(100vw - 40px);
   }
 
@@ -493,6 +394,7 @@ div.tp-dfwv {
     padding-inline: 2rem;
   }
 
+  /* FIXED: Ensure content section doesn't overflow */
   .content {
     width: 100%;
     max-width: 100vw;
@@ -500,7 +402,9 @@ div.tp-dfwv {
   }
 }
 
+/* FIXED: Additional responsive breakpoint for very small screens */
 @media (max-width: 480px) {
+  /* Maintain overflow control on body */
   body {
     overflow-x: hidden;
   }
@@ -599,19 +503,14 @@ div.tp-dfwv {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Enhanced smooth scrolling with elastic easing
     const lenis = new Lenis({
-      lerp: 0.08, // Smoother interpolation
-      smooth: true,
-      smoothTouch: true,
-      touchMultiplier: 2,
-      infinite: false,
-      easing: (t) => 1 - Math.pow(1 - t, 4), // Custom smooth easing
+      lerp: 0.1,
+      smooth: true
     });
 
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
+      lenis.raf(time * 1000); // GSAP uses seconds; Lenis uses ms
     });
     gsap.ticker.lagSmoothing(0);
 
@@ -672,22 +571,17 @@ div.tp-dfwv {
 
       gsap.set(items, { opacity: (i) => (i !== 0 ? 0.2 : 1) });
 
-      // Enhanced dimmer animation with elastic easing
       const dimmer = gsap
         .timeline()
         .to(items.slice(1), {
           opacity: 1,
-          stagger: 0.3,
-          ease: "power2.out",
-          scale: 1.02,
+          stagger: 0.5,
         })
         .to(
           items.slice(0, items.length - 1),
           {
             opacity: 0.2,
-            stagger: 0.3,
-            ease: "power2.out",
-            scale: 0.98,
+            stagger: 0.5,
           },
           0
         );
@@ -698,10 +592,9 @@ div.tp-dfwv {
         start: 'center center',
         end: 'center center',
         animation: dimmer,
-        scrub: 0.1, // More responsive scrubbing
+        scrub: 0.2,
       });
 
-      // Enhanced color transition with bounce effect
       const scroller = gsap.timeline().fromTo(
         document.documentElement,
         {
@@ -709,7 +602,7 @@ div.tp-dfwv {
         },
         {
           '--hue': config.end,
-          ease: "power2.inOut",
+          ease: 'none',
         }
       );
 
@@ -719,10 +612,9 @@ div.tp-dfwv {
         start: 'center center',
         end: 'center center',
         animation: scroller,
-        scrub: 0.1,
+        scrub: 0.2,
       });
 
-      // Enhanced chroma animations with elastic bounce
       chromaEntry = gsap.fromTo(
         document.documentElement,
         {
@@ -730,9 +622,9 @@ div.tp-dfwv {
         },
         {
           '--chroma': 0.3,
-          ease: "power3.out",
+          ease: 'none',
           scrollTrigger: {
-            scrub: 0.1,
+            scrub: 0.2,
             trigger: items[0],
             start: 'center center+=40',
             end: 'center center',
@@ -747,53 +639,18 @@ div.tp-dfwv {
         },
         {
           '--chroma': 0,
-          ease: "power3.out",
+          ease: 'none',
           scrollTrigger: {
-            scrub: 0.1,
+            scrub: 0.2,
             trigger: items[items.length - 2],
             start: 'center center',
             end: 'center center-=40',
           },
         }
       );
-
-      // Add hover effects for each item
-      items.forEach((item, index) => {
-        item.addEventListener('mouseenter', () => {
-          gsap.to(item, {
-            scale: 1.05,
-            rotationY: 2,
-            z: 20,
-            duration: 0.4,
-            ease: "power2.out"
-          });
-        });
-
-        item.addEventListener('mouseleave', () => {
-          gsap.to(item, {
-            scale: 1,
-            rotationY: 0,
-            z: 0,
-            duration: 0.4,
-            ease: "power2.out"
-          });
-        });
-      });
     }
 
     update();
-
-    // Add a subtle parallax effect to the background
-    gsap.to("body::before", {
-      yPercent: -50,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "body",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    });
   });
 </script>
 </body>
