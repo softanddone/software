@@ -163,12 +163,7 @@
 
   main {
     width: 100%;
-   
   }
-
- 
-
-
 
   section:first-of-type h2 {
     position: sticky;
@@ -179,15 +174,16 @@
     height: fit-content;
     font-weight: 400;
     font-size: 60px;
-   
-     white-space: nowrap;
-     margin-left: 100px;
-    
-
+    white-space: nowrap;
+    margin-left: 100px;
+    /* FIXED: Ensure sticky element doesn't cause overflow */
+    flex-shrink: 0;
   }
-    li{
+
+  li{
     font-size: 60px;
-       font-weight: 400;
+    font-weight: 400;
+    /* FIXED: Allow text wrapping on smaller screens */
     white-space: nowrap;
   }
 
@@ -196,7 +192,9 @@
     padding-inline: 0;
     margin: 0;
     list-style-type: none;
-
+    /* FIXED: Ensure ul doesn't overflow */
+    width: 100%;
+    max-width: 100%;
   }
 
   [data-snap='true'] {
@@ -257,7 +255,6 @@
     --font-width-max: 1500;
   }
   
-
   html {
     color-scheme: light dark;
   }
@@ -293,17 +290,8 @@
   body {
     display: grid;
     place-items: center;
-    /* background: light-dark(white, black); */
     background: linear-gradient(to right,rgb(48, 0, 82),black);
-    /* min-height: 100vh; */
     font-family: 'Geist', 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui;
-    overflow-x: hidden!important;
-    width: 100%!important;
-
-  }
-  html{
-  overflow-x: hidden!important;
-    width: 100%!important;
   }
 
   body::before {
@@ -311,7 +299,6 @@
     --line: color-mix(in hsl, canvasText, transparent 70%);
     content: '';
     height: 100vh;
-    /* width: 100vw; */
     width: 100%!important;
     position: fixed;
     background:
@@ -366,9 +353,13 @@ div.tp-dfwv {
   position: fixed;
 }
 
-
-
+/* FIXED: Better responsive design - Apply overflow control only where needed */
 @media (max-width: 768px) {
+  /* FIXED: Add overflow control only to body on mobile to prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
   [data-snap='true'] {
     scroll-snap-type: none !important;
   }
@@ -378,20 +369,64 @@ div.tp-dfwv {
   }
  
   li{
-    font-size: 20px;
+    font-size: 18px;
+    /* FIXED: Allow text to wrap on mobile and prevent overflow */
+    white-space: normal;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: calc(100vw - 40px);
   }
 
-   section:first-of-type h2{
-    font-size: 20px;
-     margin-left: -30px; 
+  section:first-of-type h2{
+    font-size: 18px;
+    margin-left: -30px; 
     display: flex;
-   
-   }
+    /* FIXED: Prevent sticky header from overflowing */
+    max-width: calc(100vw - 40px);
+  }
 
-   .content{
-  
-   }
+  section:first-of-type {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 
+  header {
+    padding-inline: 2rem;
+  }
+
+  /* FIXED: Ensure content section doesn't overflow */
+  .content {
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+}
+
+/* FIXED: Additional responsive breakpoint for very small screens */
+@media (max-width: 480px) {
+  /* Maintain overflow control on body */
+  body {
+    overflow-x: hidden;
+  }
+
+  li {
+    font-size: 16px;
+    max-width: calc(100vw - 20px);
+  }
+
+  section:first-of-type h2 {
+    font-size: 16px;
+    max-width: calc(100vw - 20px);
+  }
+
+  section:first-of-type {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  header {
+    padding-inline: 1rem;
+  }
 }
 
 .hed{
@@ -399,21 +434,11 @@ div.tp-dfwv {
     color:white;
     font-family: 'Oleo Script', cursive;
     line-height: 150%;
-   
 }
 
 .fluid{
   /* background: red; */
- 
- 
 }
-
-
-
-
-
-
-
     </style>
 
     <header>
@@ -499,11 +524,6 @@ div.tp-dfwv {
       debug: false,
     };
 
-    /* const ctrl = new Pane({
-      title: 'Config',
-      expanded: false,
-    }); */
-
     let items;
     let scrollerScrub;
     let dimmerScrub;
@@ -543,8 +563,6 @@ div.tp-dfwv {
       ) return update();
       document.startViewTransition(() => update());
     };
-
-   
 
     if (
       !CSS.supports('(animation-timeline: scroll()) and (animation-range: 0% 100%)')
