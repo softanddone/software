@@ -656,6 +656,7 @@ div.tp-dfwv {
 </body>
 </html> -->
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -764,27 +765,51 @@ div.tp-dfwv {
   }
 
   @supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
-    [data-animate='true'] li {
-      opacity: 0.15;
-      transform: translateY(20px);
-      filter: blur(2px);
-      animation-name: brighten, slideIn, focusIn;
-      animation-fill-mode: both;
-      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      animation-range: cover calc(50% - 1.5lh) calc(50% + 1.5lh);
-      animation-timeline: view();
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Desktop-only enhanced animations */
+    @media (hover: hover) and (pointer: fine) {
+      [data-animate='true'] li {
+        opacity: 0.15;
+        transform: translateY(20px);
+        filter: blur(2px);
+        animation-name: brighten, slideIn, focusIn;
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        animation-range: cover calc(50% - 1.5lh) calc(50% + 1.5lh);
+        animation-timeline: view();
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      [data-animate='true'] li:first-of-type {
+        --start-opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+
+      [data-animate='true'] li:last-of-type {
+        --brightness: 1;
+        --end-opacity: 1;
+      }
     }
 
-    [data-animate='true'] li:first-of-type {
-      --start-opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
+    /* Mobile-optimized simple animations */
+    @media (hover: none) and (pointer: coarse) {
+      [data-animate='true'] li {
+        opacity: 0.2;
+        animation-name: brighten-mobile;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-range: cover calc(50% - 1lh) calc(50% + 1lh);
+        animation-timeline: view();
+      }
 
-    [data-animate='true'] li:last-of-type {
-      --brightness: 1;
-      --end-opacity: 1;
+      [data-animate='true'] li:first-of-type {
+        --start-opacity: 1;
+      }
+
+      [data-animate='true'] li:last-of-type {
+        --brightness: 1;
+        --end-opacity: 1;
+      }
     }
 
     @keyframes brighten {
@@ -797,6 +822,19 @@ div.tp-dfwv {
       }
       100% {
         opacity: var(--end-opacity, 0.15);
+      }
+    }
+
+    @keyframes brighten-mobile {
+      0% {
+        opacity: var(--start-opacity, 0.2);
+      }
+      50% {
+        opacity: 1;
+        filter: brightness(var(--brightness, 1.1));
+      }
+      100% {
+        opacity: var(--end-opacity, 0.2);
       }
     }
 
@@ -896,9 +934,12 @@ div.tp-dfwv {
     opacity: 0;
   }
 
-  [data-animate='true'] li.active::before {
-    height: 60%;
-    opacity: 1;
+  /* Desktop-only active indicators */
+  @media (hover: hover) and (pointer: fine) {
+    [data-animate='true'] li.active::before {
+      height: 60%;
+      opacity: 1;
+    }
   }
 
   ul {
@@ -1287,14 +1328,16 @@ div.tp-dfwv {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Enhanced Lenis configuration for professional smoothness
+    // Enhanced Lenis configuration with mobile detection
+    const isMobileDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    
     const lenis = new Lenis({
-      lerp: 0.08,
-      smooth: true,
+      lerp: isMobileDevice ? 0.1 : 0.08,
+      smooth: !isMobileDevice, // Disable smooth scrolling on mobile to prevent conflicts
       direction: 'vertical',
       gestureDirection: 'vertical',
-      smoothTouch: true,
-      touchMultiplier: 2
+      smoothTouch: false, // Disable smooth touch to prevent mobile issues
+      touchMultiplier: 1
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -1391,27 +1434,51 @@ div.tp-dfwv {
         filter: (i) => (i !== 0 ? 'blur(2px)' : 'blur(0)')
       });
 
-      // Enhanced animation timeline with professional easing
-      const dimmer = gsap
-        .timeline()
-        .to(items.slice(1), {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0) brightness(1.2) saturate(1.2)',
-          stagger: 0.4,
-          ease: "power3.out"
-        })
-        .to(
-          items.slice(0, items.length - 1),
-          {
-            opacity: 0.15,
-            y: -20,
-            filter: 'blur(1px)',
+      // Detect if mobile device
+      const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      
+      // Enhanced animation timeline with mobile-specific optimizations
+      const dimmer = gsap.timeline();
+      
+      if (isMobile) {
+        // Simplified mobile animations - just opacity changes
+        dimmer
+          .to(items.slice(1), {
+            opacity: 1,
+            stagger: 0.3,
+            ease: "power2.out"
+          })
+          .to(
+            items.slice(0, items.length - 1),
+            {
+              opacity: 0.2,
+              stagger: 0.3,
+              ease: "power2.in"
+            },
+            0
+          );
+      } else {
+        // Full desktop animations
+        dimmer
+          .to(items.slice(1), {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0) brightness(1.2) saturate(1.2)',
             stagger: 0.4,
-            ease: "power3.in"
-          },
-          0
-        );
+            ease: "power3.out"
+          })
+          .to(
+            items.slice(0, items.length - 1),
+            {
+              opacity: 0.15,
+              y: -20,
+              filter: 'blur(1px)',
+              stagger: 0.4,
+              ease: "power3.in"
+            },
+            0
+          );
+      }
 
       dimmerScrub = ScrollTrigger.create({
         trigger: items[0],
@@ -1419,13 +1486,15 @@ div.tp-dfwv {
         start: 'center center',
         end: 'center center',
         animation: dimmer,
-        scrub: 0.15,
+        scrub: isMobile ? 0.3 : 0.15, // Slower scrub on mobile for smoother feel
         onUpdate: (self) => {
-          // Add active class for visual indicators
-          const activeIndex = Math.round(self.progress * (items.length - 1));
-          items.forEach((item, index) => {
-            item.classList.toggle('active', index === activeIndex);
-          });
+          // Add active class for visual indicators (desktop only)
+          if (!isMobile) {
+            const activeIndex = Math.round(self.progress * (items.length - 1));
+            items.forEach((item, index) => {
+              item.classList.toggle('active', index === activeIndex);
+            });
+          }
         }
       });
 
